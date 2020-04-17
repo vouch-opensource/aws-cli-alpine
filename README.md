@@ -5,7 +5,10 @@ Taken from https://github.com/aws/aws-cli/issues/3553#issuecomment-615149941
 ## Usage
 
 ```shell
-docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY vouchio/aws-cli aws --region us-east-1 ec2 describe-instances 
+docker run \
+  -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY \ 
+  vouchio/aws-cli \
+  aws --region us-east-1 ec2 describe-instances 
 ```
 
 ## Versions
