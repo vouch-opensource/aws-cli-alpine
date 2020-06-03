@@ -15,6 +15,11 @@ RUN apk --no-cache add \
     && curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
     && unzip awscliv2.zip \
     && aws/install \
+    && BABASHKA_VERSION=$(curl -sL https://raw.githubusercontent.com/borkdude/babashka/master/resources/BABASHKA_RELEASED_VERSION) \
+    && curl -o "babashka.zip" -sL "https://github.com/borkdude/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-static-amd64.zip" \
+    && unzip "babashka.zip" \
+    && rm "babashka.zip" \
+    && mv bb /usr/local/bin \
     && rm -rf \
         awscliv2.zip \
         aws \
