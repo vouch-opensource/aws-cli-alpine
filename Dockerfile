@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.14
 
 ENV GLIBC_VER=2.31-r0
 
@@ -16,9 +16,11 @@ RUN apk --no-cache add \
     && unzip awscliv2.zip \
     && aws/install \
     && BABASHKA_VERSION=$(curl -sL https://raw.githubusercontent.com/borkdude/babashka/master/resources/BABASHKA_RELEASED_VERSION) \
-    && curl -o "babashka.zip" -sL "https://github.com/borkdude/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-static-amd64.zip" \
-    && unzip "babashka.zip" \
-    && rm "babashka.zip" \
+    && BABASHKA_ZIP=babashka-${BABASHKA_VERSION}-linux-static-amd64.zip \
+    && wget https://github.com/borkdude/babashka/archive/refs/tags/v${BABASHKA_VERSION}/${BABASHKA_ZIP} \
+    && unzip ./${BABASHKA_ZIP} \
+    && rm ./${BABASHKA_ZIP} \
+    && mv babashka-${BABASHKA_VERSION} bb \
     && mv bb /usr/local/bin \
     && rm -rf \
         awscliv2.zip \
