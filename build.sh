@@ -6,6 +6,12 @@ IMAGE=vouchio/aws-cli
 docker build --no-cache -t ${IMAGE} .
 AWS_CLI_VERSION=$(docker run -it ${IMAGE} aws --version | awk '{ print $1 }' | sed 's|aws-cli/||')
 BABASHKA_VERSION=$(docker run -it ${IMAGE} bb --version | awk '{ print $2 }' | sed 's|^v||' | tr -d '\r')
+
+if [ ${BABASHKA_VERSION} = "error" ]; then
+    echo "Process exited due to error in babashka"
+    exit 1
+fi
+
 VERSION=${AWS_CLI_VERSION}_${BABASHKA_VERSION}
 
 docker tag ${IMAGE} ${IMAGE}:${VERSION}
