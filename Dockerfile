@@ -3,11 +3,9 @@ FROM alpine:3.14 as build
 RUN apk --no-cache add \
         curl \
         bash \
-    && BABASHKA_VERSION=$(curl -sL https://raw.githubusercontent.com/borkdude/babashka/master/resources/BABASHKA_RELEASED_VERSION) \
-    && BABASHKA_ZIP=babashka-${BABASHKA_VERSION}-linux-static-amd64.zip \
-    && wget https://github.com/borkdude/babashka/archive/refs/tags/v${BABASHKA_VERSION}/${BABASHKA_ZIP} \
-    && unzip ./${BABASHKA_ZIP} \
-    && babashka-${BABASHKA_VERSION}/install --static
+    && curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install \
+    && chmod +x install \
+    && ./install --static
 
 FROM alpine:3.14
 
