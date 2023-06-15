@@ -1,4 +1,4 @@
-FROM alpine:3.14.6 as build
+FROM alpine:3.14.9 as build
 
 RUN apk --no-cache add \
         curl \
@@ -7,7 +7,7 @@ RUN apk --no-cache add \
     && chmod +x install \
     && ./install --static
 
-FROM alpine:3.14.6
+FROM alpine:3.14.9
 
 ENV GLIBC_VER=2.31-r0
 
